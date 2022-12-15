@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .classssss {
+            font-weight: bolder;
+        }
+    </style>
+    <!-- react核心库 -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/16.14.0/umd/react.development.js"></script>
+    <!-- react操作DOM -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/16.14.0/umd/react-dom.development.js"></script>
+    <!-- babel转译 -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-core/5.8.38/browser.min.js"></script>
+</head>
+<body>
+    
+    <div id="root"></div>
+
+    <script type="text/babel"> // 引入babel
+        /**
+         * 1. 标签内使用表达式用{}
+         * 2. 类名使用className
+         * 3. 内联样式style={{ key: value }} key为多个单词使用小驼峰 eg: fontSize 
+         * 4. 一个根元素
+         * 5. 标签首字母
+         *      小写时，转为html中的同名元素，如果没有该元素，报错
+         *      大写时，渲染该component，若该component没有定义，报错
+         * 
+         * */
+
+        const id = 'idddd'
+        const className = 'classssss'
+        const inner = 'hello react'
+        // 将div渲染到根元素下
+        ReactDOM.render(
+            <div id={id} className={className}>
+                <span style={{ fontSize: '40px', color: 'red' }}>111</span>
+                <div>{inner.toUpperCase()}</div>
+                <input/>
+                <header1>11</header1>
+                <Header></Header>
+            </div>,
+            document.getElementById('root')
+        )
+    </script>
+
+</body>
+</html>
