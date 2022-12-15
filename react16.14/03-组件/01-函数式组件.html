@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react核心库 -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/16.14.0/umd/react.development.js"></script>
+    <!-- react操作DOM -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/16.14.0/umd/react-dom.development.js"></script>
+    <!-- babel转译 -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-core/5.8.38/browser.min.js"></script>
+</head>
+<body>
+    
+    <div id="root"></div>
+
+    <script type="text/babel"> // 引入babel
+        // 定义一个函数式组件，首字母大写
+        function MyComp() {
+            return <h1>其实我是一个假的</h1>
+        }
+        // 将div渲染到根元素下
+        ReactDOM.render(
+            <MyComp/>,
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+</html>
