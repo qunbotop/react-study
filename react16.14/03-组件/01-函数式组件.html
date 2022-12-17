@@ -18,6 +18,7 @@
     <script type="text/babel"> // 引入babel
         // 定义一个函数式组件，首字母大写
         function MyComp() {
+            console.log(this); // undefined
             return <h1>其实我是一个假的</h1>
         }
         // 将div渲染到根元素下
