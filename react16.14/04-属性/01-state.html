@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react核心库 -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/16.14.0/umd/react.development.js"></script>
+    <!-- react操作DOM -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/16.14.0/umd/react-dom.development.js"></script>
+    <!-- babel转译 -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+    
+    <div id="root"></div>
+
+    <script type="text/babel"> // 引入babel
+
+        class Weather extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    isHot: true,
+                    date: '0501'
+                }
+                this.handleClick1 = this.handleClick1.bind(this)
+            }
+
+            render() {
+                const { isHot, date } = this.state;
+                return <div>
+                    <h1 onClick={this.handleClick1}>今天{date}天气{isHot ? '热' : '不热'}</h1>
+                    <h1 onClick={(e) => this.handleClick2(e)}>handleClick2</h1>    
+                    <h1 onClick={this.handleClick3}>handleClick3</h1>   
+                </div>
+            }
+
+            handleClick1(e) {
+                console.log('点击', e);
+                console.log(this);
+                // 点击修改state
+                // 1. 合并不是替换
+                // 2. 不能直接修改state，通过使用setState
+                this.setState({
+                    isHot: !this.state.isHot
+                })
+            }
+
+            handleClick2(e) {
+                console.log('点击', e);
+                console.log(this);
+            }
+
+            handleClick3() {
+                // 由于handleClick3为onClick的回调，所以内部的this为undefined
+                // 改变方法
+                // 1. 通过bind改变this指向
+                // 2. 使用箭头函数
+                console.log(this); // undefined
+            }
+        }
+
+        // 写法简化
+        class Dog extends React.Component {
+            state = {
+                name: 'dogog',
+                age: 12
+            }
+
+            say = () => {
+                this.setState({
+                    name: 'dododododododoododod'
+                })
+            }
+
+            render() {
+                return <div>
+                    <button onClick={this.say}>say</button>
+                    <h1>{this.state.name} {this.state.age}</h1>    
+                </div>
+            }
+        }
+
+        ReactDOM.render(
+            <div>
+                <Weather/>
+                <Dog/>
+            </div>,
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+</html>
