@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react核心库 -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/16.14.0/umd/react.development.js"></script>
+    <!-- react操作DOM -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/16.14.0/umd/react-dom.development.js"></script>
+    <!-- babel转译 -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+    
+    <div id="root"></div>
+
+    <script type="text/babel"> // 引入babel
+        class Demo extends React.Component {
+            // 返回一个容器，该容器存储被ref所标记的节点，用一个创建一个
+            myRef1 = React.createRef();
+
+            render() {
+                return <div>
+                    <input ref="ipt1" type="text" placeholder="点击按钮提示数据"/>
+                    <button ref="btn" onClick={this.handleClick}>点我提示左侧数据</button>
+                    {/** ref如果是内联函数，更新过程会执行两次，第一次参数为null，第二次才是DOM元素 */}
+                    {/** 可以将回调函数定义成class的绑定函数避免该问题 */ } 
+                    <input ref={el => {this.ipt2 = el; console.log('as', el);} } onBlur={this.hanldeBlur} type="text" placeholder="失去焦点提示数据"/>
+                    
+                    {/** 使用creatRef方式 */}
+                    <input ref={this.myRef1} type="text"/>
+                </div>
+            }
+            handleClick = () => {
+                // 这种方式官网不建议使用，建议使用回调形式
+                const { ipt1 } = this.refs
+                console.log(ipt1.value);
+
+                console.log(this.myRef1.current);
+            }
+
+            hanldeBlur = () => {
+                this.ipt2.value = this.refs.ipt1.value;
+            }
+        }
+
+        // 将div渲染到根元素下
+        ReactDOM.render(
+            <Demo/>,
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+</html>
