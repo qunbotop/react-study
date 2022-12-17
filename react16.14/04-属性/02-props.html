@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react核心库 -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/16.14.0/umd/react.development.js"></script>
+    <!-- react操作DOM -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/16.14.0/umd/react-dom.development.js"></script>
+    <!-- babel转译 -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.js"></script>
+    <!-- 类型限制 -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/prop-types/15.5.2/prop-types.js"></script>
+</head>
+<body>
+    
+    <div id="root"></div>
+
+    <script type="text/babel"> // 引入babel
+        // 类组件
+        class Dog extends React.Component {
+            // constructor用在state初始化和事件处理函数绑定实例
+            constructor(props) {
+                super(props)
+                console.log('cons' ,this.props);
+            }
+
+            static propTypes = {
+                // sex属性为字符串且必传
+                sex: PropTypes.string.isRequired
+            }
+            static defaultProps = {
+                sex: '公'
+            }
+
+            render() {
+                const { name, age, sex, date } = this.props;
+                return <div>
+                    <h1>{name}-{age+1}-{sex}-{date+1}</h1>    
+                </div>
+            }
+        }
+
+        // 函数式组件
+        function Dog1(props) {
+            const { name, age, sex, date } = props;
+            return <div>
+                <h1>{name}-{age+1}-{sex}-{date+1}</h1>    
+            </div>
+        }
+
+        const props = {
+            name: 'dogggg',
+            age: 12
+        }
+
+        ReactDOM.render(
+            <div>
+                <Dog {...props} date={2022}/>
+                <Dog1 {...props} date={2022} sex="公"/>    
+            </div>,
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+</html>
