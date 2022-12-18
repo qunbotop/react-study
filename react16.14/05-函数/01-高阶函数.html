@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react核心库 -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/16.14.0/umd/react.development.js"></script>
+    <!-- react操作DOM -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/16.14.0/umd/react-dom.development.js"></script>
+    <!-- babel转译 -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+    
+    <div id="root"></div>
+
+    <script type="text/babel"> // 引入babel
+        // 高阶函数 满足其一
+        // A接受的参数是一个函数，A就是高阶函数
+        // A返回值依然是一个函数，A就是高阶函数 
+        class Login extends React.Component {
+            state = {
+                username: null,
+                password: null
+            }
+
+            handleChange = (type) => {
+                return (e) => {
+                    this.setState({[type]: e.target.value })
+                }
+            }
+
+            handleChangeNo = (type, e) => {
+                this.setState({ [type]: e.target.value })
+            }
+
+            handleClick = (e) => {
+                e.preventDefault();
+                const { username, password } = this.state;
+                alert(username + password)
+            }
+
+            render() {
+                return (
+                    <form action="http://www.baidu.com" onSubmit={this.handleClick}>
+                        用户：<input onChange={this.handleChange('username')} type="text" name="username"/>
+                        密码：<input onChange={this.handleChange('password')} type="password" name="password"/>  
+                        {/** 不使用柯里化*/}
+                        地址：<input onChange={(e) => this.handleChangeNo('address', e)} type="text" name="address"/>
+                        <button>登陆</button>  
+                    </form>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <Login/>,
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+</html>
