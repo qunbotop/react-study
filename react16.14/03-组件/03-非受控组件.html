@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react核心库 -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/16.14.0/umd/react.development.js"></script>
+    <!-- react操作DOM -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/16.14.0/umd/react-dom.development.js"></script>
+    <!-- babel转译 -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+    
+    <div id="root"></div>
+
+    <script type="text/babel"> // 引入babel
+        // 输入型DOM 现用现取
+        class Login extends React.Component {
+            handleClick = (e) => {
+                e.preventDefault();
+                alert(this.username.value)
+            }
+
+            render() {
+                return (
+                    <form action="http://www.baidu.com" onSubmit={this.handleClick}>
+                        用户：<input ref={c=>this.username=c} type="text" name="username"/>
+                        密码：<input ref={c=>this.password=c} type="password" name="password"/>  
+                        <button>登陆</button>  
+                    </form>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <Login/>,
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+</html>
