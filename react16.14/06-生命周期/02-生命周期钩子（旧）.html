@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react核心库 -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/16.14.0/umd/react.development.js"></script>
+    <!-- react操作DOM -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/16.14.0/umd/react-dom.development.js"></script>
+    <!-- babel转译 -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+    
+    <div id="root"></div>
+
+    <script type="text/babel"> // 引入babel
+        /**
+         * 1. 初始化阶段：第一次渲染
+         *    - constructor()         初始化
+         *    - componentWillMount()  将要挂载
+         *    - render()              组件渲染
+         *    - componentDidMount()   挂载完毕  => 做些初始化的事情，请求、订阅消息、定时器…
+         * 
+         * 2. 更卸阶段：组件内部通过setState或父组件render触发
+         *    - shouldComponentUpate() 是否更新组件
+         *    - componentWillUpdate()  组件将要更新
+         *    - render()               组件渲染
+         *    - componentDidUpdate()   组件更新完毕 
+         * 
+         * 3. 卸载阶段：通过ReactDOM.unmountComponentAtNode()触发
+         *    - componentWillUnmount() 组件将要卸载时 => 收尾工作，关闭定时器、取消订阅
+         * 
+        */
+
+
+        class Count extends React.Component {
+
+            // 初始化
+            constructor(props) {
+                super(props)
+                this.state = { count: 0 }
+                console.log('count: constructor')
+            }
+
+            // 组件将要接收props
+            componentWillReceiveProps() {
+                console.log('count: componentWillReceiveProps');
+            }
+
+            // 组件将要挂载
+            componentWillMount() {
+                console.log('count: componentWillMount');
+            }
+
+            // 组件挂载完毕
+            componentDidMount() {
+                console.log('count: componentDidMount');
+            }
+
+            // 组件卸载之前
+            componentWillUnmount() {
+                console.log('count: componentWillUnmount');
+            }
+
+            // 组件是否要更新，使用setState后，决定是否更新组件，
+            // 默认返回值为true，如果返回false，组件不更新
+            shouldComponentUpdate() {
+                console.log('count: shouldCompnentUpate');
+                return true;
+            }
+
+            force = () => {
+                // 强制更新组件，跳过shouldComponentUpdate。不改状态时强制更新组件
+                this.forceUpdate();
+            }
+
+            // 组件将要更新时
+            componentWillUpdate() {
+                console.log('count: componentWillUpdate');
+            }
+
+            // 组件更新完毕
+            componentDidUpdate() {
+                console.log('count: componentDidUpdate');
+            }
+
+            unMount = () => {
+                ReactDOM.unmountComponentAtNode(document.getElementById('root'))
+            }
+
+            add = () => {
+                const { count } = this.state
+                this.setState({ count: count + 1 })
+            }
+
+            render() {
+                console.log('count: render');
+                const { count } = this.state
+                return (
+                    <div>
+                        <h2>sum: {count} - {this.props.name}</h2>
+                        <button onClick={this.add}>btn</button>
+                        <button onClick={this.unMount}>卸载组件</button>  
+                        <button onClick={this.force}>强制更新</button>  
+                    </div>
+                )
+            }
+        }
+
+        class A extends React.Component {
+            state = {
+                name: 'AAAAA'
+            }
+
+            change = () => {
+                this.setState({ name: 'BBBBB' })
+            }
+
+            render() {
+                console.log('父: render');
+                const { name } = this.state
+                return (
+                    <div>
+                        <button onClick={this.change}>父组件切换，更新props</button>
+                        <Count name={name}/>
+                    </div>
+                )
+            }
+        }
+
+        // 将div渲染到根元素下
+        ReactDOM.render(
+            <A />,
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+</html>

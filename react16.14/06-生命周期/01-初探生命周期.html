@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react核心库 -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/16.14.0/umd/react.development.js"></script>
+    <!-- react操作DOM -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/16.14.0/umd/react-dom.development.js"></script>
+    <!-- babel转译 -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+    
+    <div id="root"></div>
+
+    <script type="text/babel"> // 引入babel
+        class Life extends React.Component {
+            state = {
+                opacity: 0.5
+            }
+
+            handleUnmount = () => {
+                ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+            }
+
+            // 组件挂在完毕之后调用
+            componentDidMount() {
+                console.log('did Mount');
+                this.timer = setInterval(() => {
+                    let { opacity } = this.state;
+                    opacity -= 0.1
+                    if (opacity <= 0) {
+                        opacity = 1
+                    } 
+                    this.setState({ opacity })
+                }, 200);
+            }
+
+            // 组件将要卸载时调用
+            componentWillUnmount() {
+                console.log('will unmount');
+                clearInterval(this.timer);
+            }
+
+            // 初始化渲染时调用、状态更新后调用
+            render() {
+                console.log('render');
+                return (
+                    <div>
+                        <h2 style={{ opacity: this.state.opacity }}>你好啊啊啊啊啊</h2>
+                        <button onClick={this.handleUnmount}>卸载组件</button>    
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(
+            <Life/>,
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+</html>
