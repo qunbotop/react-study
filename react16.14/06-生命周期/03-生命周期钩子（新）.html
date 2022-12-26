@@ -17,6 +17,26 @@
 
     <script type="text/babel"> // 引入babel
 
+        /**
+         * v17
+         * 
+         * 1. 初始化阶段：第一次渲染
+         *    - constructor()         初始化
+         *    - getDerivedStateFromProps
+         *    - render()              组件渲染
+         *    - componentDidMount()   挂载完毕  => 做些初始化的事情，请求、订阅消息、定时器…
+         * 
+         * 2. 更卸阶段：组件内部通过setState或父组件render触发
+         *    - getDerivedStateFromProps()
+         *    - shouldComponentUpate()      是否更新组件
+         *    - render()                    组件渲染
+         *    - getSnapshotBeforeUpdate()   
+         *    - componentDidUpdate()        组件更新完毕 
+         * 
+         * 3. 卸载阶段：通过ReactDOM.unmountComponentAtNode()触发
+         *    - componentWillUnmount() 组件将要卸载时 => 收尾工作，关闭定时器、取消订阅
+         * 
+        */
         class Count extends React.Component {
 
             // 初始化
